@@ -1,0 +1,15 @@
+{% extends "students/student_base.html" %}
+
+{% block content %}
+<h1>Delete {{student.user.username}}?</h1>
+
+<form method="post">
+  {% csrf_token %}
+
+  <input type="submit" class="btn btn-danger" value="Delete">
+
+  <a href="{% url 'departments:detail' slug1=student.students.slug slug2=student.slug %} ">Cancel</a>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "faculties/faculty_base.html" %}
+
+{% block content %}
+
+  <div class="container jumbotron">
+
+    <h3><a href="{% url 'faculties:faculty_detail' faculty_slug=department.faculty.faculty_slug %}"><span style="color:#1bac91;"> {{department.faculty.name}}</a> </span> </h1>
+      <br>
+    <h2>All Students of <a style="font-size:24px;" href="{% url 'departments:department_detail' faculty_slug=department.faculty.faculty_slug department_slug=department.department_slug %}">{{department.name}}</a> </h2>
+
+    <br><br>
+    <h6><span style="font-weight:bold">Total students:</span> {{department.students.count }}</h2>
+
+    <br>
+    {# <h5> {{department.detail_html|safe}}</h4><br><br> #}
+
+  </div>
+
+
+  <div class="container">
+    <section id="steps" class="steps section-bg" style="background-color:#fafcff">
+
+
+      <hr>
+      {% if department.students.count == 0 %}
+        <h5>No students admitted in this department.</h5>
+
+      {% else %}
+
+      <table id="details_table" align="center">
+        <thead style="color:blue">
+          <th>Profile Pic</th>
+          <th> <p>Student Username </p> </th>
+          <th> <p>Student ID</p> </th>
+          <th> <p>Email</p> </th>
+          <th><p>Department</p> </th>
+          <th> <p>Session </p> </th>
+        </thead>
+        <tr >
+          <td class="extra-row"><br> </td>
+          <td class="extra-row"><br> </td>
+        </tr>
+
+        {% for student in department.students.all %}
+        <tr>
+          {% if student.profile_pic %}
+           <td><img src="{{ student.profile_pic.url }}"  height=120 width=120 alt=""></td>
+          {% else %}
+            <td><img src="/static/no_profile_pic.png"  height=120 width=120 alt=""></td>
+          {% endif %}
+
+          <td><p> <a href="{% url 'students:student_detail' department_slug=student.department.department_slug student_slug=student.student_slug %} " style="color:#1bac91; font-size:19px"> {{student.user.username}}</a> </h4></td>
+          <td> {{ student.student_ID }} </td>
+
+          {% if student.user.email %}
+            <td><p> <span style="color:#2f5b9c;"> {{student.user.email}}</p></td>
+          {% else %}
+            <td><p> <span style="color:#2f5b9c;">Not given</p> </td>
+          {% endif %}
+
+          <td> {{ student.department.acronyms }} </td>
+          <td><p> <span style="color:#2f5b9c;">{{student.session}}</p> </td>
+        </tr>
+
+        <tr >
+          <td class="extra-row"><br> </td>
+        </tr>
+        <tr >
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
+
+      <hr>
+
+    </section>
+  </div>
+
+<br><br><br>
+
+{% endblock %}

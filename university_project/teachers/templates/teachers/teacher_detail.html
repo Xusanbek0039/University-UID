@@ -1,0 +1,98 @@
+{% extends "teachers/teacher_base.html" %}
+{% block content %}
+
+
+<section id="portfolio" class="portfolio section-bg">
+
+<div class="container">
+  <h1>Welcome to the Teacher Detail Page</h1><br><br>
+  <div class="row portfolio-container" data-aos="fade-up">
+    <div class="col-lg-4 col-md-6 portfolio-item filter-faculty">
+      <div class="portfolio-wrap">
+            {% if teacher_detail.profile_pic %}
+             <img class="img-fluid" src="{{ teacher_detail.profile_pic.url }}" alt="">
+
+             <div class="portfolio-info">
+               <h4>{{ faculty.name }}</h4>
+
+             <div class="portfolio-links">
+               <h5><a href='{{ teacher_detail.profile_pic.url }}' title="More Details"><i class="bx bx-link"></i>Full Picture</a></h5>
+             </div>
+
+           </div>
+
+            {% else %}
+              <img class="img-fluid"  src="/static/no_profile_pic.png" alt="">
+            {% endif %}
+
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-md-6 portfolio-item filter-faculty">
+      <table id="details_table_teacher">
+        <tr>
+          <td> <p>Teacher Name: </p> </td>
+          <td><p><span style="color:#2f5b9c;">{{teacher_detail.user.username}}</span></p> </td>
+        </tr>
+
+        <tr>
+          <td> <p>Academic Rank: </p> </td>
+          <td><p><span style="color:#2f5b9c;">{{teacher_detail.academic_rank}}</span></p> </td>
+        </tr>
+
+        <tr>
+          <td> <p>Teacher ID: </td>
+          <td> <span style="color:#2f5b9c;">{{teacher_detail.Teacher_ID}}</p> </td>
+        </tr>
+
+        <tr>
+          <td> <p>Email: </td>
+          {% if teacher_detail.user.email %}
+            <td><p> <span style="color:#2f5b9c;"> {{teacher_detail.user.email}}</p></td>
+          {% else %}
+            <td><p> <span style="color:#2f5b9c;">Not given</p> </td>
+          {% endif %}
+        </tr>
+
+        <tr>
+          <td> <p>Department:  </td>
+          <td><span style="color:#2f5b9c;"><a href="{% url 'departments:department_detail' faculty_slug=teacher_detail.department.faculty.faculty_slug department_slug=teacher_detail.department.department_slug %}">{{teacher_detail.department}}</a>  </td>
+        </tr>
+
+        <tr>
+          <td><p>Faculty: </td>
+          <td> <span style="color:#2f5b9c;"><a href="{% url 'faculties:faculty_detail' faculty_slug=teacher_detail.department.faculty.faculty_slug %}">{{teacher_detail.department.faculty}}</a> </p></td>
+        </tr>
+
+        <tr>
+          <td><p>Portfolio Site </p> </td>
+          <td><a href="{{teacher_detail.portfolio_site}}"> <span style="color:#2f5b9c;">{{teacher_detail.portfolio_site}}</a> </td>
+        </tr>
+      </table>
+
+
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+</section>
+
+
+{% if user.is_authenticated and user.username == teacher_detail.user.username %}
+<br><br>
+<div class="container">
+  <a class='btn btn-warning' href="{% url 'teachers:update_teacher_profile' teacher_slug=teacher_detail.teacher_slug %}">
+    <span class="fa fa-times-circle-ok"></span> Update Profile</a>
+  <a class='btn btn-danger' href="{% url 'teachers:delete_teacher' department_slug=teacher_detail.department.department_slug teacher_slug=teacher_detail.teacher_slug %}">
+    <span class="fa fa-times-circle-ok"></span> Delete Profile</a>
+
+</div>
+{% endif %}
+<br><br>
+
+
+
+{% endblock %}

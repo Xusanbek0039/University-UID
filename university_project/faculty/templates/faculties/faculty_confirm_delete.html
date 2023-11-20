@@ -1,0 +1,16 @@
+{% extends "faculties/faculty_base.html" %}
+
+
+{% block content %}
+
+  <div class="container jumbotron">
+    <form class="" method="post">
+      {% csrf_token %}
+
+      <h3>Do you want to delete <span><strong>{{ object }}</strong></span> ?</p>
+      <input type="submit" class="btn btn-danger" value="Confirm Delete">
+    </form>
+  </div>
+
+
+{% endblock %}

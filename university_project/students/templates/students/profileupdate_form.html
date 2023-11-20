@@ -1,0 +1,22 @@
+{% extends "students/student_base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<section id="steps" class="steps section-bg">
+  <div class="container">
+    <form  method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {% bootstrap_form form %}
+    
+      {% for formset in inlines %}
+        <br>{{ formset.as_p }}<br>
+      {% endfor %}
+      <button class="btn btn-primary" type="submit" name="button">Update Profile</button>
+      <br><br>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

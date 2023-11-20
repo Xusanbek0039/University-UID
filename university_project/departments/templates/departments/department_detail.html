@@ -1,0 +1,99 @@
+{% extends "faculties/faculty_base.html" %}
+
+{% block content %}
+
+  <div class="container jumbotron">
+    <h2>Welcome to department detail page!</h2>
+    <h2>Faculty: <a href="{% url 'faculties:faculty_detail' faculty_slug=department.faculty.faculty_slug %}"><span style="color:#1bac91;"> {{department.faculty.name}}</a> </span> </h1>
+    <br> <ul>
+      <h6>Total students: {{department.students.count }}</h2>
+      <h6>Faculty members : {{department.teachers.count }}</h4>
+    </ul>
+    <br>
+    <ul>
+      <div class="row">
+        <div class="col-lg-3 col-md-3">
+          <h5><a class="btn btn-primary" href="{% url 'departments:department_teachers' department_slug=department.department_slug %}">Department Teachers</a> </h5>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <h5><a class="btn btn-warning" href="{% url 'departments:department_students' department_slug=department.department_slug %}">Department Students</a> </h5>
+        </div>
+      </div>
+    </ul>
+
+
+    {% if user.is_superuser %}
+    <ul>
+      <div class="row">
+        <div class="col-lg-3 col-md-3">
+          <a class="btn btn-lg btn-primary" href="{% url 'departments:update_department' faculty_slug=department.faculty.faculty_slug department_slug=department.department_slug %}">
+            <span class="fa fa-times-circle-ok"></span> Update Department
+          </a>
+        </div>
+
+      <div class="col-lg-3 col-md-3">
+        <a class="btn btn-lg btn-danger" href="{% url 'departments:delete_department' faculty_slug=department.faculty.faculty_slug department_slug=department.department_slug %}">
+          <span class="fa fa-times-circle-o"></span> Delete Department
+        </a>
+      </div>
+      </div>
+    </ul>
+    {% endif %}
+  </div>
+
+<div class="container">
+  <h4>Name of the Department: <span style="color:#1bac91; font-size:19px">{{department.name}}</span> </h1>
+  <ul>
+    <li><h6>Acronym: {{department.acronyms}}</h2> </li>
+    <li> <h6> Chairman : {{department.chairman}} </h3> </li>
+
+    <li><h6>Total teachers : {{department.teachers.count}} </h2></li>
+    <li><h6>Total students : {{department.students.count}} </h2></li>
+    {% if department.established_date %}
+      <li> <h6>Established at: {{department.established_date|time:"TIME_FORMAT"}}</h2> </li>
+    {% endif %}
+  </ul>
+  <br><br>
+
+  <br>
+  <h5 style="color:#8a5030 ;"><strong>About {{department.name}}: </strong> </h5>
+  <p style="color:#5c5b5a ;"> {{department.detail_html|safe}}</h4><br><br>
+</div>
+
+
+<section id="portfolio" class="portfolio section-bg">
+
+    <div class="container">
+      <div class="row portfolio-container" data-aos="fade-up">
+        {% if department.department_images.count != 0 %}
+        {% for img in department.department_images.all %}
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+
+              <img src='{{ img.image.url }}' class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>{{ department.name }}</h4>
+
+                <div class="portfolio-links">
+                  <a href="{{img.image.url}}" data-gall="portfolioGallery" class="venobox"><i class="bx bx-link"></i>Full Picture</a>
+                </div>
+              </div>
+
+            </div>
+        </div>
+      {% endfor %}
+
+      {% else %}
+      <h5>No photos uploaded in <span style="color:#1bac91;">{{department.name}}</span>. This site is under
+        maintenance.</h2>
+      {% endif %}
+    </div>
+  </div>
+  </section>
+
+<br><br><br><br>
+
+
+
+{% endblock %}

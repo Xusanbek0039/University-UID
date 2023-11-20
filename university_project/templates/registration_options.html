@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block body_block %}
+<br><br>
+<section id="steps" class="steps section-bg">
+  <br><br>
+  <div class="container jombotron">
+    <h1>Welcome to Registration page!</h1><br><br>
+    <ul>
+      <li><h4>Register as a Student: <a class="btn btn-primary" href="{% url 'students:student_register' %}">Student Registration</a></h2> </li>
+    </ul>
+
+    <ul>
+      <li><h4>Register as a Teacher: <a class="btn btn-primary" href="{% url 'teachers:teacher_register' %}">Teacher Registration</a></h4> </li>
+    </ul>
+
+    <br><br>
+    <h5>If you have completed registration already then click this
+      link to go to <a href="{% url 'user_login' %}">Login page</a> </h5>
+  </div>
+<br><br>
+
+</section>
+<br><br>
+
+
+{% endblock %}

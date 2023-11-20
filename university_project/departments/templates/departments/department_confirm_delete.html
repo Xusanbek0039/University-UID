@@ -1,0 +1,18 @@
+{% extends "departments/department_base.html" %}
+
+{% block content %}
+<section id="steps" class="steps section-bg">
+	<div class="container">
+		<h3>Are you sure you want to delete <span style="color:#1bac91; font-size:22px">{{object.name}}</span>?</h3><br><br>
+
+		<form method="POST">
+			{% csrf_token %}
+
+			<input type="submit" value="Confirm Delete" class="btn btn-danger btn-large">
+			<a href="{% url 'departments:department_detail' faculty_slug=department.faculty.faculty_slug department_slug=department.department_slug %}" class="btn btn-primary btn-large">Cancel</a>
+
+		</form>
+	</div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'faculties/faculty_base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <section id="steps" class="steps section-bg">
+      <div class="container">
+        <h1>Update {{faculty.name}}</h1>
+
+        <form method="POST" class="post-form">
+
+        {% csrf_token %}
+
+        {% bootstrap_form form %}
+
+        {% buttons %}
+        <button type="submit" class="save btn btn-default">Save Changes</button>
+        {% endbuttons %}
+        </form>
+      </div>
+    </section>
+
+
+{% endblock %}

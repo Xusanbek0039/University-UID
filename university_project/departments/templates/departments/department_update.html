@@ -1,0 +1,24 @@
+{% extends 'departments/department_base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+    <section id="steps" class="steps section-bg">
+
+      <div class="container">
+        <h3>Update <span style="color:#1bac91; font-size:22px">{{ department.name }}</span> </h1>
+          <br>
+        <form method="POST" class="post-form">
+        {% csrf_token %}
+
+        {% bootstrap_form form %}
+
+
+        <input type="submit" class="btn btn-primary"></input>
+
+        </form>
+      </div>
+    </section>
+
+
+{% endblock %}

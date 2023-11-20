@@ -1,0 +1,35 @@
+{% extends "departments/department_base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<section id="steps" class="steps section-bg">
+  <div class="container">
+    {% if user.is_superuser %}
+    <form id="department_form" method="post" action="" enctype="multipart/form-data">
+
+      {% csrf_token %}
+
+
+      {% for hidden in department_form.hidden_fields %}
+          {{ hidden }}<br>
+      {% endfor %}
+
+      {% bootstrap_form department_form %}
+
+      <br>
+      {{ formset.management_form }}
+      {% for form in formset %}
+          {{ form }}<br><br>
+      {% endfor %}
+
+      <br>
+      <input type="submit" name="submit" value="Create Department" />
+    </form>
+    {% else %}
+    <h2>You must be a superuser to Create Department</h2>
+    {% endif %}
+  </div>
+</section>
+<br><br>
+{% endblock %}

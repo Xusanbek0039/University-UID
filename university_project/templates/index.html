@@ -1,0 +1,386 @@
+{% extends "base.html" %}
+<!-- {% load static %} -->
+{% block body_block %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+  <div class="container text-center text-md-left" data-aos="fade-up">
+    <h1>Welcome to UIT</h1>
+    <h2>Learn in an effective way. You will have amazing opportunities to explore modern science through studying it in the friendly and professional environment using modern equipment and resources.</h2>
+    <a href="#steps" class="btn-get-started scrollto">Faculties</a>
+  </div>
+</section><!-- End Hero -->
+
+<main id="main">
+
+  <!-- ======= Steps Section ======= -->
+  <section id="faculties" class="steps section-bg">
+    <div class="container">
+
+      <div class="row no-gutters">
+
+        {% for faculty in faculties %}
+
+        <div class="col-lg-4 col-md-6 content-item" data-aos="fade-in">
+          <h4><a href="{% url 'faculties:faculty_detail' faculty_slug=faculty.faculty_slug %}">{{ faculty.name }}</a> </h4>
+          <p style="text-align: left;">{{faculty.detail|truncatechars:150}}</p>
+        </div>
+
+        {% endfor %}
+
+
+      </div>
+
+    </div>
+  </section><!-- End Steps Section -->
+
+
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-xl-3 col-lg-3" data-aos="fade-right">
+            <img height="500" width="400" src='media/univerrsity/gallery/varsity4.png' class="img-fluid" alt="">
+            <p></p> <img height="500" width="400" src='media/univerrsity/gallery/varsity9.jpeg' class="img-fluid" alt="">
+            <p></p> <img height="200" width="200" src='media/univerrsity/gallery/varsity18.jpeg' class="img-fluid" alt="">
+            <p></p> <img height="500" width="400" src='media/univerrsity/gallery/varsity21.jpeg' class="img-fluid" alt="">
+
+          </div>
+          <div class="col-xl-3 col-lg-4" data-aos="fade-right">
+            <img height="500" width="500" src='media/univerrsity/gallery/varsity7.jpeg' class="img-fluid" alt="">
+            <p></p> <img height="500" width="500" src='media/univerrsity/gallery/varsity8.jpeg' class="img-fluid" alt="">
+            <p></p> <img height="300" width="500" src='media/univerrsity/gallery/varsity16.jpeg' class="img-fluid" alt="">
+
+          </div>
+
+
+          <div class="col-xl-6 col-lg-5 pt-5 pt-lg-0">
+            <h3 data-aos="fade-up">University of Information Technology</h3>
+            <p data-aos="fade-up">
+            The creation of a band of skilled manpower equipped with latest knowledge of science and technology is a must to achieve a prestigious position in this modern world.
+            As a part of ensuring quality education, with immense expectations of the southern coastal inhabitants of Bangladesh, a new university named UIC was established on 15 July 2001
+            enacting the University Act 2001. Finally, it started its academic activities on 22 June 2006. The inclusion of the study of humanities implies the urge felt by the concerned authority to create leaders who will fashion a more humane and just world.
+            </p>
+
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <i class="bx bx-cube-alt"></i>
+              <h4><a href="{% url 'faculties:faculty_list' %}"> Faculties </a> </h4>
+              <p>At present, it has six faculties and two institutes (IIS and IIT)</p>
+            </div>
+
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+              <i class="bx bx-cube-alt"></i>
+              <h4><a href="{% url 'departments:all_departments' %}">Departments</a> </h4>
+              <p>Faculties include many degree offering departments namely CSTE, FIMS, Pharmacy, ACCE, MBG etc.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+
+
+  <!-- ======= Features Section ======= -->
+  <section id="departments" class="features">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-4 mb-5 mb-lg-0" data-aos="fade-right">
+          <ul class="nav nav-tabs flex-column">
+
+            {% for department in departments %}
+            <li class="nav-item">
+              <a href="{% url 'departments:department_detail' faculty_slug=department.faculty.faculty_slug department_slug=department.department_slug %}">
+                <h4>{{department.acronyms}}</h4>
+                <p style="color: #576273;text-align: left;">{{department.detail|truncatechars:70}}</p>
+              </a>
+            </li>
+
+            {% endfor %}
+            <li><p></p> </li>
+            <li>
+              <a class="btn btn-primary" href="{% url 'departments:all_departments' %}">All Departments</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-7 ml-auto" data-aos="fade-left">
+          <div class="tab-content">
+            <h3 style="padding-left: 130px;color:#2f4b5c" >Departments</h3>
+            <div class="tab-pane active show" id="tab-1">
+              <figure>
+                <img height="250" width="400"  src='{% static "dept1.jpeg" %}' alt="" class="">
+                <p></p>
+                <img height="250" width="400" src='{% static "dept2.jpg" %}' alt="" class="">
+
+              </figure>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Features Section -->
+
+  <!-- ======= Testimonials Section ======= -->
+  <section id="testimonials" class="testimonials">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Testimonials</h2>
+      </div>
+
+      <div class="owl-carousel testimonials-carousel" data-aos="fade-up">
+
+        <div class="testimonial-item">
+          <p>
+            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+            Study without desire spoils the memory, and it retains nothing that it takes in.
+            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+          </p>
+          <img src='{% static "tes1.jpg" %}' class="testimonial-img" alt="">
+          <h3>Leonardo da Vinci</h3>
+          <h4>polymath</h4>
+        </div>
+
+        <div class="testimonial-item">
+          <p>
+            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+            A fool's brain digests philosophy into folly, science into superstition, and art into pedantry. Hence University education.
+            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+          </p>
+          <img src='{% static "tes2.jpg" %}' class="testimonial-img" alt="">
+          <h3>George Bernard Shaw</h3>
+          <h4>Playwright</h4>
+        </div>
+
+        <div class="testimonial-item">
+          <p>
+            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+            Universities are not here to be mediums for the coercion of other people, they're here to be mediums for the free exchange of ideas.
+            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+          </p>
+          <img src='{% static "tes3.jpg" %}' class="testimonial-img" alt="">
+          <h3>A. Bartlett Giamatti</h3>
+          <h4>American professor</h4>
+        </div>
+
+        <div class="testimonial-item">
+          <p>
+            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+            The quality of a university is measured by the kind of student it turns out than the kind it takes in.
+            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+          </p>
+          <img src='{% static "tes4.jpg" %}' class="testimonial-img" alt="">
+          <h3>Robert J. Kibbee</h3>
+          <h4>university administrator</h4>
+        </div>
+
+        <div class="testimonial-item">
+          <p>
+            <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+            Surround yourself with people who challenge you, push you, and teach you to be your best self.
+            <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+          </p>
+          <img src='{% static "tes5.jpg" %}' class="testimonial-img" alt="">
+          <h3>Bill Gates</h3>
+          <h4>Entrepreneur</h4>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Testimonials Section -->
+
+  <!-- ======= Portfolio Section ======= -->
+  <section id="portfolio" class="portfolio section-bg">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Gallery</h2>
+      </div>
+
+      <div class="row" data-aos="fade-up">
+        <div class="col-lg-12 d-flex justify-content-center">
+          <ul id="portfolio-flters">
+            <li data-filter="*" class="filter-active">All</li>
+            <li data-filter=".filter-app">Hall</li>
+            <li data-filter=".filter-card">Fountain Pen</li>
+            <li data-filter=".filter-web">Gol Chottor</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row portfolio-container" data-aos="fade-up">
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src='media/univerrsity/gallery/varsity32.jpg' class="img-fluid" alt="">
+            <div class="portfolio-info">
+
+              <div class="portfolio-links">
+                <a href='media/univerrsity/gallery/varsity32.jpg' data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+          <div class="portfolio-wrap">
+            <img src='media/univerrsity/gallery/varsity44.jpg' class="img-fluid" alt="">
+            <div class="portfolio-info">
+
+              <div class="portfolio-links">
+                <a href='media/univerrsity/gallery/varsity44.jpg' data-gall="portfolioGallery" class="venobox" title="Web 3"><i class="bx bx-plus"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src='media/univerrsity/gallery/varsity31.jpg' class="img-fluid" alt="">
+            <div class="portfolio-info">
+
+              <div class="portfolio-links">
+                <a href='media/univerrsity/gallery/varsity31.jpg' data-gall="portfolioGallery" class="venobox" title="App 2"><i class="bx bx-plus"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+          <div class="portfolio-wrap">
+            <img src='media/univerrsity/gallery/varsity4.png' class="img-fluid" alt="">
+            <div class="portfolio-info">
+
+              <div class="portfolio-links">
+                <a href='media/univerrsity/gallery/varsity4.png' data-gall="portfolioGallery" class="venobox" title="Card 2"><i class="bx bx-plus"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+          <div class="portfolio-wrap">
+            <img src='media/univerrsity/gallery/varsity36.jpg' class="img-fluid" alt="">
+            <div class="portfolio-info">
+
+              <div class="portfolio-links">
+                <a href='media/univerrsity/gallery/varsity36.jpg' data-gall="portfolioGallery" class="venobox" title="Web 2"><i class="bx bx-plus"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src='media/univerrsity/gallery/varsity41.jpg' class="img-fluid" alt="">
+            <div class="portfolio-info">
+
+              <div class="portfolio-links">
+                <a href='media/univerrsity/gallery/varsity41.jpg' data-gall="portfolioGallery" class="venobox" title="App 3"><i class="bx bx-plus"></i></a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+          <div class="portfolio-wrap">
+            <img src='media/univerrsity/gallery/varsity29.jpg' class="img-fluid" alt="">
+            <div class="portfolio-info">
+
+              <div class="portfolio-links">
+                <a href='media/univerrsity/gallery/varsity29.jpg' data-gall="portfolioGallery" class="venobox" title="Card 1"><i class="bx bx-plus"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+          <div class="portfolio-wrap">
+            <img src='media/univerrsity/gallery/varsity42.jpg' class="img-fluid" alt="">
+            <div class="portfolio-info">
+
+              <div class="portfolio-links">
+                <a href='media/univerrsity/gallery/varsity42.jpg' data-gall="portfolioGallery" class="venobox" title="Card 3"><i class="bx bx-plus"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+          <div class="portfolio-wrap">
+            <img src='media/univerrsity/gallery/varsity21.jpeg' class="img-fluid" alt="">
+            <div class="portfolio-info">
+
+              <div class="portfolio-links">
+                <a href='media/univerrsity/gallery/varsity21.jpeg' data-gall="portfolioGallery" class="venobox" title="Web 3"><i class="bx bx-plus"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="" style="float: center;">
+        <h5 style="text-align: center;"> <a class="btn btn-primary" href="{% url 'faculties:varsity_images' %}">All Photos</a>
+          </h5>
+      </div>
+
+    </div>
+  </section><!-- End Portfolio Section -->
+
+  <!-- ======= Contact Section ======= -->
+  <!-- <section id="contact" class="contact">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      </div>
+
+      <div class="row no-gutters justify-content-center" data-aos="fade-up">
+
+        <div class="col-lg-5 d-flex align-items-stretch">
+          <div class="info">
+            <div class="address">
+              <i class="icofont-google-map"></i>
+              <h4>Location:</h4>
+              <p>A108 Adam Street, New York, NY 535022</p>
+            </div>
+
+            <div class="email mt-4">
+              <i class="icofont-envelope"></i>
+              <h4>Email:</h4>
+              <p>info@example.com</p>
+            </div>
+
+            <div class="phone mt-4">
+              <i class="icofont-phone"></i>
+              <h4>Call:</h4>
+              <p>+1 5589 55488 55s</p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-lg-5 d-flex align-items-stretch">
+           <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14713.101636361276!2d91.1022592!3d22.7922567!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4bab3d112f6b6f3f!2sNoakhali%20Science%20and%20Technology%20University!5e0!3m2!1sen!2sbd!4v1598207606730!5m2!1sen!2sbd" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Contact Section --> -->
+
+</main><!-- End #main -->
+
+{% endblock %}

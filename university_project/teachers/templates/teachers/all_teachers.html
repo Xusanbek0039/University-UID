@@ -1,0 +1,73 @@
+{% extends "teachers/teacher_base.html" %}
+
+{% block content %}
+
+  <div class="container jumbotron">
+
+    <h3>Welcome to Teachers page</h3>
+    <h5>Teachers are listed below</h5>
+    <h6>Total teachers in UIT: {{teachers.count}}</h6>
+
+    <br><br>
+    <h6><span style="font-weight:bold">Total teachers:</span> {{department.teachers.count }}</h2>
+
+    <br>
+
+  </div>
+
+
+  <div >
+    <section id="steps" class="container steps section-bg" style="background-color:#fafcff">
+
+
+      <table id="details_table" align="center">
+        <thead style="color:blue">
+          <th>Profile Pic</th>
+          <th> <p>Username </p> </th>
+          <th> <p>Academic Rank</p> </th>
+          <th> <p>Teacher ID</p> </th>
+          <th> <p>Email</p> </th>
+          <th><p>Department</p> </th>
+
+        </thead>
+        <tr >
+          <td class="extra-row"><br> </td>
+          <td class="extra-row"><br> </td>
+        </tr>
+
+        {% for teacher in teachers %}
+        <tr>
+          {% if teacher.profile_pic %}
+           <td><img src="{{ teacher.profile_pic.url }}"  height=150 width=150 alt=""></td>
+          {% else %}
+            <td><img src="/static/no_profile_pic.png"  height=150 width=150 alt=""></td>
+          {% endif %}
+
+          <td><p> <a href="{% url 'teachers:teacher_detail' department_slug=teacher.department.department_slug teacher_slug=teacher.teacher_slug %} " style="color:#1bac91; font-size:19px"> {{teacher.user.username}}</a> </h4></td>
+          <td> {{teacher.academic_rank}} </td>
+          <td> {{ teacher.Teacher_ID }} </td>
+
+          {% if teacher.user.email %}
+            <td><p> <span style="color:#2f5b9c;"> {{teacher.user.email}}</p></td>
+          {% else %}
+            <td><p> <span style="color:#2f5b9c;">Not given</p> </td>
+          {% endif %}
+
+          <td> {{ teacher.department.acronyms }} </td>
+          <td><p> <span style="color:#2f5b9c;">{{teacher.session}}</p> </td>
+        </tr>
+        <tr >
+          <td class="extra-row"><br> </td>
+        </tr>
+        <tr >
+        </tr>
+        {% endfor %}
+      </table>
+
+
+    </section>
+  </div>
+
+<br><br><br>
+
+{% endblock %}

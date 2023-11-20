@@ -1,0 +1,50 @@
+{% extends "faculties/faculty_base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <div class="container jumbotron">
+    <h1 style="text-align: center;">Photos of UIC</h1><br><br>
+
+    <br>
+    <br>
+
+  </div>
+
+
+<section id="portfolio" class="portfolio section-bg">
+
+  {% if varsity_images.count != 0 %}
+    <div class="container">
+
+      <div class="row portfolio-container" data-aos="fade-up">
+
+        {% for img in varsity_images %}
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+          <div class="portfolio-wrap">
+
+                <img src='{{ img.image.url }}' class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h5>{{ UIC }}</h4>
+
+                <div class="portfolio-links">
+                  <h6><a data-gall="portfolioGallery" class="venobox"  href='{{ img.image.url }}' title="More Details"><i class="bx bx-link"></i>Full Picture</a></h5>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  {% else %}
+    <div class="container">
+      <h4>Varsity has no photos!</h3>
+    </div>
+  {% endif %}
+  </section>
+
+
+
+{% endblock %}

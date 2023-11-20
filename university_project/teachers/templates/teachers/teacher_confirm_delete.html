@@ -1,0 +1,16 @@
+{% extends "teachers/teacher_base.html" %}
+
+{% block content %}
+<div class="contaier jumbotron">
+	<h3>Are you sure you want to delete {{object.name}}?</h3>
+
+	<form method="POST">
+		{% csrf_token %}
+		<br><br>
+		<input type="submit" value="Confirm Delete" class="btn btn-danger btn-large">
+		<a href="{% url 'teachers:teacher_detail' department_slug=teacher.department.department_slug teacher_slug=teacher.teacher_slug %}" class="btn btn-light btn-large">Cancel</a>
+		<br><br>
+	</form>
+</div>
+
+{% endblock %}

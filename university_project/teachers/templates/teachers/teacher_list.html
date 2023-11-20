@@ -1,0 +1,14 @@
+{% extends "teachers/teacher_base.html" %}
+{% load humanize %}
+
+{% block content %}
+
+
+<div class="">
+	{% for teacher in teacher_list %}
+  {% include "teachers/_teacher.html" %}
+	{% endfor %}
+</div>
+
+
+{% endblock %}

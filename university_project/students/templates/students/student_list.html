@@ -1,0 +1,14 @@
+{% extends "students/student_base.html" %}
+{% load humanize %}
+
+{% block content %}
+
+
+<div class="">
+	{% for student in student_list %}
+  {% include "students/_student.html" %}
+	{% endfor %}
+</div>
+
+
+{% endblock %}

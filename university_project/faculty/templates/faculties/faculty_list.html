@@ -1,0 +1,128 @@
+{% extends "faculties/faculty_base.html" %}
+
+{% block content %}
+
+  <section id="steps" class="steps section-bg">
+    <div class="container ">
+
+      <h1>Faculties of UIT</h1>
+
+      <h4>Total facuties : {{faculty_list.count}} <br><br></h4>
+
+      {% for faculty in faculty_list  %}
+
+        <ul>
+          <li><h5><a href="{% url 'faculties:faculty_detail' faculty_slug=faculty.faculty_slug %}">{{ faculty.name }}</a> </h1></li>
+          <h6>Total Departments: {{faculty.departments.count }}</h2>
+            <br>
+        </ul>
+
+      {% endfor %}
+    </div>
+  </section>
+
+
+  <section id="portfolio" class="portfolio section-bg">
+
+    <div class="container">
+      <div class="row" data-aos="fade-up">
+        <div class="col-lg-12 d-flex justify-content-center">
+
+          <ul id="portfolio-flters">
+            <li data-filter="*" class="filter-active">ALL</li>
+            <li data-filter=".filter-app">{{ faculty_list.0 }}</li>
+            <li data-filter=".filter-web">{{ faculty_list.1 }}</li>
+            <li data-filter=".filter-card">{{ faculty_list.2 }}</li>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="row portfolio-container" data-aos="fade-up">
+        {% for faculty in faculty_list %}
+
+        {% if faculty ==  faculty_list.0  %}
+        {% for img in faculty.faculty_images.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src='{{ img.image.url }}' class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>{{ faculty.name }}</h4>
+
+                <div class="portfolio-links">
+                  <a href="{% url 'faculties:faculty_detail' faculty_slug=faculty.faculty_slug %}" title="More Details"><i class="bx bx-link"></i>Detail</a>
+                  <h5><a href='{{ img.image.url }}' data-gall="portfolioGallery" class="venobox"  title="More Details"><i class="bx bx-link"></i>Full Picture</a></h5>
+                </div>
+
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% elif faculty == faculty_list.1 %}
+        {% for img in faculty.faculty_images.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-wrap">
+
+                  <img src='{{ img.image.url }}' class="img-fluid" alt="">
+                  <div class="portfolio-info">
+                    <h4>{{ faculty.name }}</h4>
+
+                    <div class="portfolio-links">
+                      <a href="{% url 'faculties:faculty_detail' faculty_slug=faculty.faculty_slug %}" title="More Details"><i class="bx bx-link"></i>Detail</a>
+                      <h5><a href='{{ img.image.url }}' data-gall="portfolioGallery" class="venobox"  title="More Details"><i class="bx bx-link"></i>Full Picture</a></h5>
+                    </div>
+
+                  </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% elif faculty == faculty_list.2 %}
+        {% for img in faculty.faculty_images.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+
+                  <img src='{{ img.image.url }}' class="img-fluid" alt="">
+                  <div class="portfolio-info">
+                    <h4>{{ faculty.name }}</h4>
+
+                    <div class="portfolio-links">
+                      <a href="{% url 'faculties:faculty_detail' faculty_slug=faculty.faculty_slug %}" title="More Details"><i class="bx bx-link"></i>Detail</a>
+                      <h5><a href='{{ img.image.url }}' data-gall="portfolioGallery" class="venobox"  title="More Details"><i class="bx bx-link"></i>Full Picture</a></h5>
+                    </div>
+
+                  </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        {% for img in faculty.faculty_images.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item filter-none">
+            <div class="portfolio-wrap">
+
+                <img src='{{ img.image.url }}' class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>{{ faculty.name }}</h4>
+
+                <div class="portfolio-links">
+                  <a href="{% url 'faculties:faculty_detail' faculty_slug=faculty.faculty_slug %}" title="More Details"><i class="bx bx-link"></i>Detail</a>
+                  <h6><a href='{{ img.image.url }}' data-gall="portfolioGallery" class="venobox"  title="More Details"><i class="bx bx-link"></i>Full Picture</a></h5>
+
+                </div>
+
+                </div>
+
+          </div>
+        </div>
+        {% endfor %}
+
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+  </section>
+
+{% endblock %}

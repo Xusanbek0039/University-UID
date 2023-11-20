@@ -1,0 +1,187 @@
+{% extends "faculties/faculty_base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <div class="container jumbotron">
+    <h1>{{faculty.name}}</h1><br><br>
+    {# <h2>Departments: {{faculty.departments.count }}</h2> #}
+    <br>
+    <h4>Dean: <span style="color:#50707a;">{{faculty.dean}}</span> </h4><br><br>
+    <h5>{{faculty.detail_html|safe}}</h5><br>
+    {% if user.is_superuser %}
+      <a class="btn btn-lg btn-warning" href="{% url 'faculties:update_faculty' faculty_slug=faculty.faculty_slug %}">
+        <span class="fa fa-times-circle-ok"></span> Update Faculty
+      </a>
+
+      <a class="btn btn-lg btn-danger" href="{% url 'faculties:delete_faculty' faculty_slug=faculty.faculty_slug %}">
+        <span class="fa fa-times-circle-o"></span> Delete Faculty
+      </a>
+    {% endif %}
+  </div>
+
+
+<section id="portfolio" class="portfolio section-bg">
+
+  {% if faculty.faculty_images.count != 0 %}
+    <div class="container">
+      <h5>Photos of {{faculty.name}}</h5><br>
+      <div class="row portfolio-container" data-aos="fade-up">
+
+        {% for img in faculty.faculty_images.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item filter-faculty">
+          <div class="portfolio-wrap">
+
+                <img src='{{ img.image.url }}' class="img-fluid" alt="">
+                <div class="portfolio-info">
+                  <h4>{{ faculty.name }}</h4>
+
+                <div class="portfolio-links">
+                  <h5><a href='{{ img.image.url }}' data-gall="portfolioGallery" class="venobox"  title="More Details"><i class="bx bx-link"></i>Full Picture</a></h5>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  {% else %}
+    <div class="container">
+      <h4>Faculty has no photos!</h3>
+    </div>
+  {% endif %}
+  </section>
+
+
+
+<br><br>
+  <section id="steps" class="steps section-bg">
+    <div class="container">
+      <h4>Departments under {{faculty.name}}</h4>
+
+      {% if faculty.departments.count == 0 %}
+      <h5 style="color:blue;"><br>No departments in this group!</h3><br><br>
+
+      {% else %}
+        {% for department in faculty.departments.all %}
+          <ul>
+            <li><a href="{% url 'departments:department_detail' faculty_slug=faculty.faculty_slug department_slug=department.department_slug %}"> {{department.name}} </a> </li>
+          </ul>
+        {% endfor %}
+      {% endif %}
+
+      {% if  user.is_superuser  %}
+      <a class="btn btn-lg btn-warning" href="{% url 'departments:create_department' %}">
+        <span class="fa fa-times-circle-ok"></span> Create Department
+      </a>
+      {% endif %}
+    </div>
+  </section>
+
+
+  <section id="portfolio" class="portfolio section-bg">
+
+    <div class="container">
+      <div class="row" data-aos="fade-up">
+        <h5 style="text-align:center;">Photos of Departments</h3><br>
+        <div class="col-lg-12 d-flex justify-content-center">
+
+          <ul id="portfolio-flters">
+            <li data-filter="*" class="filter-active">ALL</li>
+            <li data-filter=".filter-app">{{ faculty.departments.all.0.acronyms }}</li>
+            <li data-filter=".filter-web">{{ faculty.departments.all.1.acronyms }}</li>
+            <li data-filter=".filter-card">{{ faculty.departments.all.2.acronyms }}</li>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="row portfolio-container" data-aos="fade-up">
+
+        {% for department in faculty.departments.all %}
+
+        {% if department.acronyms == faculty.departments.all.0.acronyms %}
+
+        {% for img in department.department_images.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+
+                  <img src='{{img.image.url}}' class="img-fluid" alt="">
+                  <div class="portfolio-info">
+
+                    <div class="portfolio-links">
+                      <a href="{{img.image.url}}" data-gall="portfolioGallery" class="venobox"><i class="bx bx-link"></i>Full Picture</a>
+                      <a href="{% url 'departments:department_detail' faculty_slug=department.faculty.faculty_slug department_slug=department.department_slug %}" title="Go to Departmentd"><i class="bx bx-link"></i>Go to {{department.acronyms}}</a>
+                    </div>
+
+                  </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% elif department.acronyms == faculty.departments.all.1.acronyms %}
+        {% for img in department.department_images.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-wrap">
+
+                  <img src='{{img.image.url}}' class="img-fluid" alt="">
+                  <div class="portfolio-info">
+
+                  <div class="portfolio-links">
+                    <a href="{{img.image.url}}" data-gall="portfolioGallery" class="venobox"><i class="bx bx-link"></i>Full Picture</a>
+                    <a href="{% url 'departments:department_detail' faculty_slug=department.faculty.faculty_slug department_slug=department.department_slug %}" title="More Details"><i class="bx bx-link"></i>Go to {{department.acronyms}}</a>
+                  </div>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% elif department.acronyms == faculty.departments.all.2.acronyms %}
+        {% for img in department.department_images.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+
+                <img src='{{img.image.url}}' class="img-fluid" alt="">
+                <div class="portfolio-info">
+
+                <div class="portfolio-links">
+                  <a href="{{img.image.url}}" data-gall="portfolioGallery" class="venobox"><i class="bx bx-link"></i>Full Picture</a>
+                  <a href="{% url 'departments:department_detail' faculty_slug=department.faculty.faculty_slug department_slug=department.department_slug %}" title="More Details"><i class="bx bx-link"></i>Go to {{department.acronyms}}</a>
+                </div>
+
+              </div>
+          </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        {% for img in department.department_images.all %}
+        <div class="col-lg-4 col-md-6 portfolio-item filter-extra">
+            <div class="portfolio-wrap">
+
+                <img src='{{img.image.url}}' class="img-fluid" alt="">
+                <div class="portfolio-info">
+
+                <div class="portfolio-links">
+                  <a href="{{img.image.url}}" data-gall="portfolioGallery" class="venobox"><i class="bx bx-link"></i>Full Picture</a>
+                  <a  href="{% url 'departments:department_detail' faculty_slug=department.faculty.faculty_slug department_slug=department.department_slug %}" title="More Details"><i class="bx bx-link"></i>Go to {{department.acronyms}}</a>
+                </div>
+
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+
+        {% endif %}
+
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </section>
+
+{% endblock %}

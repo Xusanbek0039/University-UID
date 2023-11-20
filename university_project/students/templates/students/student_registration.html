@@ -1,0 +1,33 @@
+{% extends "students/student_base.html" %}
+{# {% load staticfiles %} #}
+{% load bootstrap4 %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="jumbotron">
+
+      {% if registered %}
+        <h1>Thank you for registering!</h1>
+      {% else %}
+
+        <h1>Register Here</h1>
+        <h5>Student registration form</h3><br><br>
+
+        <form enctype="multipart/form-data" method="POST">
+          {% csrf_token %}
+
+          {% bootstrap_form student_form %}
+          {% bootstrap_form student_profile_form %}
+
+          <br>
+          <input type="submit" name="" value="Register">
+        </form>
+
+      {% endif %}
+
+    </div>
+
+  </div>
+
+{% endblock %}

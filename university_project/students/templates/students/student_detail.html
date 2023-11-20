@@ -1,0 +1,93 @@
+{% extends "students/student_base.html" %}
+{% block content %}
+{% load static %}
+<div class="container jumbotron">
+
+<h1>Welcome to the Student Detail Page</h1><br><br>
+
+
+<section id="portfolio" class="portfolio section-bg">
+
+<div class="container">
+  <div class="row portfolio-container" data-aos="fade-up">
+    <div class="col-lg-4 col-md-6 portfolio-item filter-faculty">
+      <div class="portfolio-wrap">
+            {% if student_detail.profile_pic %}
+             <img class="img-fluid" src="{{ student_detail.profile_pic.url }}" alt="">
+
+             <div class="portfolio-info">
+               <h4>{{ faculty.name }}</h4>
+
+             <div class="portfolio-links">
+               <h5><a href='{{ student_detail.profile_pic.url }}' title="More Details"><i class="bx bx-link"></i>Full Picture</a></h5>
+             </div>
+
+           </div>
+
+            {% else %}
+              <img class="img-fluid"  src="/static/no_profile_pic.png" alt="">
+            {% endif %}
+
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-md-6 portfolio-item filter-faculty">
+      <table id="details_table_teacher">
+        <tr>
+          <td> <p>Student Name: </p> </td>
+          <td><p><span style="color:#2f5b9c;">{{student_detail.user.username}}</span></p> </td>
+        </tr>
+
+        <tr>
+          <td> <p>Student ID: </td>
+          <td> <span style="color:#2f5b9c;">{{student_detail.student_ID}}</span></p> </td>
+        </tr>
+
+        <tr>
+          <td> <p>Email: </td>
+          {% if student_detail.user.email %}
+            <td><p> <span style="color:#2f5b9c;"> {{student_detail.user.email}}</span></p></td>
+          {% else %}
+            <td><p> <span style="color:#2f5b9c;">Not given</span></p> </td>
+          {% endif %}
+        </tr>
+
+        <tr>
+          <td> <p>Department:  </td>
+          <td><span style="color:#2f5b9c;"><a href="{% url 'departments:department_detail' faculty_slug=student_detail.department.faculty.faculty_slug department_slug=student_detail.department.department_slug %}">{{student_detail.department}} </a> </span> </td>
+        </tr>
+
+        <tr>
+          <td><p>Faculty: </td>
+          <td> <span style="color:#2f5b9c;"><a href="{% url 'faculties:faculty_detail' faculty_slug=student_detail.department.faculty.faculty_slug %}">{{student_detail.department.faculty}}</a> </span></p></td>
+        </tr>
+
+        <tr>
+          <td><p>Session: </p> </td>
+          <td><p> <span style="color:#2f5b9c;">{{student_detail.session}}</p> </td>
+        </tr>
+      </table>
+
+
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+</section>
+
+
+{% if user.is_authenticated and user.username == student_detail.user.username %}
+<div class="container">
+  <a class='btn btn-warning' href="{% url 'students:update_student_profile' student_slug=student_detail.student_slug %}">
+    <span class="fa fa-times-circle-ok"></span> Update Profile</a>
+  <a class='btn btn-danger' href="{% url 'students:delete_student' department_slug=student_detail.department.department_slug student_slug=student_detail.student_slug %}">
+    <span class="fa fa-times-circle-ok"></span> Delete Profile</a>
+
+</div>
+{% endif %}
+<br><br>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "faculties/faculty_base.html" %}
+
+{% block content %}
+
+  <div class="container jumbotron">
+
+    <h3><a href="{% url 'faculties:faculty_detail' faculty_slug=department.faculty.faculty_slug %}"><span style="color:#1bac91;"> {{department.faculty.name}}</a> </span> </h1>
+      <br>
+    <h2>All Teachers of <a style="font-size:24px;" href="{% url 'departments:department_detail' faculty_slug=department.faculty.faculty_slug department_slug=department.department_slug %}">{{department.name}}</a> </h2>
+
+    <br><br>
+    <h6><span style="font-weight:bold">Total teachers:</span> {{department.teachers.count }}</h2>
+
+    <br>
+    {# <h5> {{department.detail_html|safe}}</h4><br><br> #}
+
+  </div>
+
+
+  <div >
+    <section id="steps" class="container steps section-bg" style="background-color:#fafcff">
+
+      {% if department.teachers.count == 0 %}
+        <h5>No teachers recruited in this department.</h5>
+
+      {% else %}
+      <table id="details_table" align="center">
+        <thead style="color:blue">
+          <th>Profile Pic</th>
+          <th> <p>Username </p> </th>
+          <th> <p>Academic Rank</p> </th>
+          <th> <p>Teacher ID</p> </th>
+          <th> <p>Email</p> </th>
+          <th><p>Department</p> </th>
+
+        </thead>
+        <tr >
+          <td class="extra-row"><br> </td>
+          <td class="extra-row"><br> </td>
+        </tr>
+
+        {% for teacher in department.teachers.all %}
+        <tr>
+          {% if teacher.profile_pic %}
+           <td><img src="{{ teacher.profile_pic.url }}"  height=150 width=150 alt=""></td>
+          {% else %}
+            <td><img src="/static/no_profile_pic.png"  height=150 width=150 alt=""></td>
+          {% endif %}
+
+          <td><p> <a href="{% url 'teachers:teacher_detail' department_slug=teacher.department.department_slug teacher_slug=teacher.teacher_slug %} " style="color:#1bac91; font-size:19px"> {{teacher.user.username}}</a> </h4></td>
+          <td> {{teacher.academic_rank}} </td>
+          <td> {{ teacher.Teacher_ID }} </td>
+
+          {% if teacher.user.email %}
+            <td><p> <span style="color:#2f5b9c;"> {{teacher.user.email}}</p></td>
+          {% else %}
+            <td><p> <span style="color:#2f5b9c;">Not given</p> </td>
+          {% endif %}
+
+          <td> {{ teacher.department.acronyms }} </td>
+          <td><p> <span style="color:#2f5b9c;">{{teacher.session}}</p> </td>
+        </tr>
+        <tr >
+          <td class="extra-row"><br> </td>
+        </tr>
+        <tr >
+        </tr>
+        {% endfor %}
+      </table>
+
+      {% endif %}
+
+    </section>
+  </div>
+
+<br><br><br>
+
+{% endblock %}

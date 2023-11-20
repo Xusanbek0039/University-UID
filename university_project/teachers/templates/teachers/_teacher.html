@@ -1,0 +1,25 @@
+<div class="media">
+
+	<div class="media-body">
+		<strong><a href="{% url 'teachers:teacher_detail' department_slug=teacher.department.department_slug teacher_slug=teacher.teacher_slug %}"> {{ teacher.user.username }}</a> </strong>
+
+    <ol>
+			<li> {{ teacher.user.username  }} </li>
+      <li> {{ teacher.teacher_ID  }} </li>
+      <li> {{ teacher.email  }} </li>
+      <li> <a href="{% url 'departments:detail' faculty_slug=teacher.department.faculty.faculty_slug department_slug=teacher.department.department_slug %}">{{ teacher.department.name }}</a> </li>
+      <li> <a href="{% url 'faculties:detail' slug=teacher.department.faculty.slug %}">{{ teacher.department.faculty.name }}</a> </li>
+
+    </ol>
+
+
+		<div class="media-footer">
+			{% if user.is_superuser %}
+				<a href="{% url 'teachers:teacher_delete' department_slug=teacher.department.department_slug teacher_slug=teacher.teacher_slug %}" title="delete" class="btn btn-simple">
+					<span class="fa fa-remove text-danger" aria-hidden="true"></span>
+					<span class="text-danger icon-label">Delete</span>
+				</a>
+			{% endif %}
+		</div>
+	</div>
+</div>

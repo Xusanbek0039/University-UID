@@ -1,0 +1,26 @@
+{% extends "faculties/faculty_base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+<section id="steps" class="steps section-bg">
+  <div class="container">
+    <form id="faculty_form" method="post" action="" enctype="multipart/form-data">
+
+      {% csrf_token %}
+
+      {{ formset.management_form }}
+      {% for form in formset %}
+          {{ form }} <br> <br>
+      {% endfor %}
+
+      <br>
+      <input type="submit" name="submit" value="Upload Photos" />
+    </form>
+
+  </div>
+
+</section>
+
+
+{% endblock %}
